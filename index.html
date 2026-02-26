@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinderportret Dashboard | Studio Iris van 't Riet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --teal-dark: #264d5e;
+            --teal: #2f6178;
+            --teal-light: #3a7a94;
+            --terra: #b8897a;
+            --terra-light: #d4b0a0;
+            --terra-pale: #e8d5cc;
+            --cream: #f5f0eb;
+            --cream-dark: #ebe3db;
+            --text-dark: #2a2a2a;
+            --text-medium: #5a5a5a;
+            --text-light: #8a8a8a;
+            --white: #ffffff;
+            --gold: #c9a96e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        /* Header */
+        .header {
+            background: var(--teal-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--terra), var(--gold), var(--terra));
+        }
+
+        .header h1 {
+            font-size: 2.4rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.3rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.8;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .header .studio-name {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            opacity: 0.6;
+            margin-bottom: 1rem;
+        }
+
+        /* Welcome banner */
+        .welcome {
+            background: var(--white);
+            max-width: 900px;
+            margin: -1.5rem auto 2rem;
+            padding: 2rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .welcome h2 {
+            font-size: 1.5rem;
+            color: var(--teal-dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .welcome p {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 1rem 0;
+            max-width: 1100px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: var(--white);
+            border: 1.5px solid var(--cream-dark);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--teal-dark);
+            color: var(--white);
+            border-color: var(--teal-dark);
+        }
+
+        /* Main content */
+        .main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        /* Section cards */
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            color: var(--teal-dark);
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--terra-pale);
+        }
+
+        .card h4 {
+            font-size: 1.1rem;
+            color: var(--teal);
+            margin: 1.2rem 0 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-medium);
+            font-size: 0.92rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            padding: 0.5rem 0 0.5rem 1.8rem;
+            position: relative;
+            color: var(--text-medium);
+            font-size: 0.92rem;
+        }
+
+        .card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.85rem;
+            width: 8px;
+            height: 8px;
+            background: var(--terra);
+            border-radius: 50%;
+        }
+
+        /* Highlight box */
+        .highlight {
+            background: var(--teal-dark);
+            color: var(--white);
+            padding: 1.8rem 2.2rem;
+            border-radius: 10px;
+            margin: 1.2rem 0;
+        }
+
+        .highlight h4 {
+            color: var(--terra-light);
+            margin-top: 0;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight p, .highlight li, .highlight strong, .highlight span {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.8;
+            opacity: 1 !important;
+        }
+
+        .highlight strong {
+            font-weight: 600;
+        }
+
+        .highlight ul li {
+            padding: 0.4rem 0 0.4rem 1.8rem;
+        }
+
+        .highlight ul li::before {
+            background: var(--terra-light);
+        }
+
+        /* Tip box */
+        .tip {
+            background: var(--terra-pale);
+            padding: 1.2rem 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--terra);
+        }
+
+        .tip p {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .tip strong {
+            color: var(--teal-dark);
+        }
+
+        /* Steps */
+        .steps {
+            counter-reset: step;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.2rem;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--cream-dark);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--teal-dark);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .step-content h4 {
+            margin: 0 0 0.3rem;
+            font-size: 1rem;
+        }
+
+        .step-content p {
+            margin: 0;
+            font-size: 0.88rem;
+        }
+
+        /* Price table */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .price-table th {
+            background: var(--teal-dark);
+            color: var(--white);
+            padding: 0.8rem 1rem;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .price-table td {
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid var(--cream-dark);
+            font-size: 0.88rem;
+            color: var(--text-medium);
+        }
+
+        .price-table tr:nth-child(even) {
+            background: var(--cream);
+        }
+
+        .price-table .price {
+            font-weight: 600;
+            color: var(--teal-dark);
+        }
+
+        /* Color swatches */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .color-swatch {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 10px;
+            background: var(--cream);
+        }
+
+        .swatch-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 auto 0.6rem;
+            border: 2px solid rgba(0,0,0,0.08);
+        }
+
+        .color-swatch h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--teal-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .color-swatch p {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Do / Don't columns */
+        .do-dont {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .do-col {
+            background: #e8f5e9;
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-top: 3px solid #4caf50;
+        }
+
+        .dont-col {
+            background: #fbe9e7;
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-top: 3px solid #e57373;
+        }
+
+        .do-col h5, .dont-col h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .do-col h5 { color: #2e7d32; }
+        .dont-col h5 { color: #c62828; }
+
+        .do-col li::before { background: #4caf50 !important; }
+        .dont-col li::before { background: #e57373 !important; }
+
+        .styling-photos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.2rem 0;
+        }
+
+        .styling-photos img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            object-fit: cover;
+            aspect-ratio: 3/4;
+        }
+
+        .styling-photos.trio {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        @media (max-width: 600px) {
+            .styling-photos {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+            .styling-photos.trio {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cool-col {
+            background: #e8eff5;
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-top: 3px solid #5b8fa8;
+        }
+
+        .warm-col {
+            background: #f5efe4;
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-top: 3px solid #c4956a;
+        }
+
+        .cool-col h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+            color: #3a6e8a;
+        }
+
+        .warm-col h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+            color: #9a7040;
+        }
+
+        .cool-col li::before { background: #5b8fa8 !important; }
+        .warm-col li::before { background: #c4956a !important; }
+
+        /* Contact bar */
+        .contact-bar {
+            background: var(--teal-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 2rem;
+        }
+
+        .contact-bar h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-bar p {
+            color: #ffffff;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-bar a {
+            color: var(--terra-light);
+            text-decoration: none;
+        }
+
+        .contact-bar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Accordion for mobile */
+        .accordion-header {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .welcome {
+                margin: -1rem 1rem 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .do-dont {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                gap: 0.4rem;
+                padding: 0.8rem 0.5rem 0;
+            }
+
+            .nav-btn {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.9rem;
+            }
+
+            .price-table {
+                font-size: 0.82rem;
+            }
+
+            .color-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 2rem 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .main {
+                padding: 1.5rem 1rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="studio-name">Studio Iris van 't Riet</div>
+    <h1>Jouw Kinderportret Sessie</h1>
+    <p>Alles wat je nodig hebt om je voor te bereiden</p>
+</header>
+
+<!-- Welcome -->
+<div class="welcome">
+    <h2>Wat fijn dat je een sessie hebt geboekt!</h2>
+    <p>Op deze pagina vind je alle informatie om je voor te bereiden op de fotoshoot en alles wat daarna komt. Neem het rustig door en neem gerust contact op als je vragen hebt.</p>
+</div>
+
+<!-- Navigation -->
+<nav class="nav">
+    <button class="nav-btn active" data-section="stappenplan">Stappenplan</button>
+    <button class="nav-btn" data-section="voorbereiding">Voorbereiding</button>
+    <button class="nav-btn" data-section="kleding">Kleding &amp; Styling</button>
+    <button class="nav-btn" data-section="sessie">De Sessie</button>
+    <button class="nav-btn" data-section="locatie">Locatie &amp; Parkeren</button>
+    <button class="nav-btn" data-section="nadesessie">Na de Sessie</button>
+    <button class="nav-btn" data-section="prijzen">Prijzen &amp; Wall Art</button>
+    <button class="nav-btn" data-section="delijst">De Print</button>
+    <button class="nav-btn" data-section="contact">Contact</button>
+    <button class="nav-btn" data-section="voorwaarden">Voorwaarden</button>
+</nav>
+
+<!-- Main Content -->
+<main class="main">
+
+    <!-- STAPPENPLAN -->
+    <div class="section active" id="stappenplan">
+        <div class="card">
+            <h3>Stappenplan</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Boeking &amp; Bevestiging</h4>
+                        <p>Je ontvangt een factuur. Je plek is verzekerd na betaling.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4>Persoonlijk Consult</h4>
+                        <p>Ongeveer twee weken van tevoren hebben we telefonisch contact om de fotoshoot door te spreken.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>Voorbereiding</h4>
+                        <p>Op deze pagina vind je alles om je voor te bereiden: tips over kleding, kleuren en wat je kunt verwachten. Neem het rustig door en neem gerust contact op als je vragen hebt.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h4>De Fotoshoot</h4>
+                        <p>Een ontspannen sessie van 1 tot 1,5 uur in de studio. We starten rustig en je kind krijgt alle ruimte om te wennen.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">5</div>
+                    <div class="step-content">
+                        <h4>Online Galerij</h4>
+                        <p>Binnen een week ontvang je een link naar de beste foto's (nog niet nabewerkt) om uit te kiezen.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">6</div>
+                    <div class="step-content">
+                        <h4>Nabewerking</h4>
+                        <p>Het gekozen portret wordt zorgvuldig nabewerkt met aandacht voor licht, kleur en sfeer.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">7</div>
+                    <div class="step-content">
+                        <h4>Levering</h4>
+                        <p>Je ontvangt een prachtige fine art print in baklijst, klaar om aan de muur te hangen. De levertijd is ongeveer vier weken.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VOORBEREIDING -->
+    <div class="section" id="voorbereiding">
+        <div class="card">
+            <h3>Je kind voorbereiden</h3>
+            <p>In mijn ervaring helpt het als kinderen van tevoren goed weten wat ze gaan doen. Je kan samen de brochure bekijken of de website.</p>
+            <p>Je kunt ze uitleggen hoe het in zijn werk zou gaan en hoe lang het duurt. Ook kan het helpen om te vertellen dat ze niet op een bepaalde manier hoeven te kijken. Het gaat juist om ontspannen zichzelf zijn. Hoe meer instructies ze krijgen over hoe ze moeten kijken, hoe krampachtiger het vaak wordt.</p>
+            <p>Neem ze ook mee in de kledingkeuze. Kinderen houden van autonomie. En tegelijkertijd wil je qua styling niet helemaal de vrije hand geven. Daarom kan het helpen om een voorselectie te maken, waaruit het kind zelf kan kiezen.</p>
+
+            <h4>Tips voor de dag zelf</h4>
+            <ul>
+                <li>Zorg dat je kind uitgerust is. Plan de sessie op een moment dat past bij het ritme van je kind</li>
+                <li>Vertel je kind dat jullie iets leuks gaan doen, zonder te veel druk op het resultaat</li>
+                <li>Baby's en peuters: plan rond slaap- en voedingstijden</li>
+                <li>Tieners: laat ze meedenken over de sfeer en kleding. Dat geeft zelfvertrouwen</li>
+                <li>In de studio staan drankjes en een tussendoortje klaar, daar hoef je niet aan te denken</li>
+                <li>Let op schone ongelakte nagels</li>
+            </ul>
+
+        </div>
+
+        <div class="card">
+            <h3>Wat neem je mee?</h3>
+            <ul>
+                <li>Ruim voldoende kleding. We kiezen samen in de studio wat het beste werkt</li>
+                <li>Meerdere sets (zowel boven- als onderkleding, tenzij je alleen een close up portret wilt) in verschillende kleuren</li>
+                <li>Kleding gewassen en gestreken</li>
+
+                <li>Eventueel een favoriete knuffel of speeltje. Er is wat speelgoed aanwezig</li>
+                <li>Haarborstel en eventuele haarproducten</li>
+            </ul>
+
+            <div class="highlight">
+                <h4>Consult</h4>
+                <p>Ongeveer twee weken voorafgaand aan de sessie plannen we een telefonisch gesprek. Hierin bespreken we onderstaande punten.</p>
+                <ul>
+                    <li>Naam en leeftijd van je kind(eren)</li>
+                    <li>Wat je graag in de portretten wilt zien</li>
+                    <li>Achtergrondvoorkeur (licht/donker/koel/warm)</li>
+                    <li>Gewenste uitsnede (close-up, tot middel, driekwart)</li>
+                    <li>Of meerdere kinderen dezelfde stijl moeten hebben</li>
+                    <li>Wat goed is om te weten over je kind</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- KLEDING & STYLING -->
+    <div class="section" id="kleding">
+        <div class="card">
+            <h3>Kleding &amp; Styling voor Kinderen</h3>
+            <p>Het tijdloze van de portretten zit niet alleen in het licht en de uitdrukking, maar ook in de kleding en kleuren. De kleding speelt een ondersteunende rol. Het gaat om je kind, niet om de outfit. Houd het simpel en kies iets waar je kind zich prettig in voelt.</p>
+            <p>Ik kijk persoonlijk met je mee naar geschikte kledingstukken. Samen zorgen we ervoor dat de kleding past bij je kind én bij het portret dat we voor ogen hebben.</p>
+
+            <div class="tip">
+                <p><strong>Belangrijk:</strong> Dit zijn richtlijnen, geen harde regels. Neem ruim voldoende kleding mee, we kiezen samen in de studio wat het beste past.</p>
+            </div>
+
+            <p>Je mag vooraf gerust foto's van je kinderen sturen via WhatsApp, dan kan ik alvast meekijken naar kleurtonen en advies geven over wat goed zou passen.</p>
+
+            <div class="styling-photos">
+                <img src="images/bo-kai_irisvantriet-2026-digitaalgebruik-4.jpg" alt="Portret klein kind in donkerblauwe trui">
+                <img src="images/Bobbi_mikki-0020053-bewerkt.jpg" alt="Portret meisje in lichtblauwe kanten jurk">
+            </div>
+
+        </div>
+
+        <div class="card">
+            <h3>Materiaal &amp; Pasvorm</h3>
+            <p>Kies kleding die mooi aansluit op het lichaam van je kind. Te wijde vormen geven hoekige blokken in beeld. Soepele stoffen vallen het mooist en zijn comfortabel in verschillende poses.</p>
+
+            <div class="do-dont">
+                <div class="do-col">
+                    <h5>Wel</h5>
+                    <ul>
+                        <li>Soepele, zachte stoffen die mooi vallen</li>
+                        <li>Aansluitend maar comfortabel</li>
+                        <li>Subtiele texturen zoals fijne brei of kant</li>
+                        <li>Effen kleuren of rustige, organische patronen</li>
+                        <li>Kleding waar je kind vrij in kan bewegen</li>
+                        <li>Basiskleuren zijn altijd goed</li>
+                    </ul>
+                </div>
+                <div class="dont-col">
+                    <h5>Liever niet</h5>
+                    <ul>
+                        <li>Drukke prints, strepen of grote opdrukken</li>
+                        <li>Glanzende of reflecterende stoffen</li>
+                        <li>Neonkleuren</li>
+                        <li>Kleding met grote logo's of tekst</li>
+                        <li>Spierwit (leidt de aandacht af van het gezicht)</li>
+                        <li>Te wijde of oversized kleding</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="styling-photos">
+                <img src="images/Bobbi_mikki-0020029-bewerkt.jpg" alt="Portret met donkergroene blouse met fijn kant">
+                <img src="images/Kenneth-207-bewerkt-bewerkt.jpg" alt="Portret met donkerbruine trui, simpel en aansluitend">
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Welke kleuren passen bij je kind?</h3>
+            <p>De kleuren die je kiest hebben invloed op de sfeer van het portret. Medium tot donkere kleuren werken vaak het mooist en leiden de aandacht naar het gezicht. Het ligt aan de ondertoon van de huid, ogen en haren of warme of koele kleuren het mooist staan.</p>
+
+            <h4>Warm of koel type?</h4>
+            <p>In principe kan iedereen elke kleur dragen (op oranje na), maar het gaat erom naar welke ondertoon de kleur neigt. Zo kan paars naar blauw neigen (koele paars), maar ook naar rood (warme paars). Zit er meer warmte in de ondertoon van je kind, dan staan warme tinten meestal mooier. Is je kind wat koeler van toon, dan kan je beter kiezen voor koele tinten.</p>
+
+            <h4>Herkennen aan de huid</h4>
+            <p>Heeft je kind een wat blauwige of rozige gloed in de huid? Dan is dat vaak het koele type. Warme types herken je meer aan een gouden of perzikachtige gloed in de huid.</p>
+
+            <h4>Herkennen aan het haar</h4>
+            <p>Koele haarkleuren zijn askleurig, grijs, platina of gitzwart. Warme haarkleuren zijn warm blond, honingkleur, koper- of kastanjebruin.</p>
+
+            <h4>Herkennen aan de ogen</h4>
+            <p>Warme oogkleuren zijn olijfgroen, licht tot donkerbruin en warm blauw. Koele oogkleuren zijn koel blauw, grijs, koel groen en donkergrijs.</p>
+
+
+
+            <h4>Koele kleuren</h4>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #6b6b6b;"></div>
+                    <h5>Grijs</h5>
+                    <p>Rustig &amp; neutraal</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #4a6e82;"></div>
+                    <h5>Groenblauw</h5>
+                    <p>Fris &amp; rustig</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #7a2e2e;"></div>
+                    <h5>Bordeaux</h5>
+                    <p>Klassiek &amp; krachtig</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #6b3a5a;"></div>
+                    <h5>Aubergine</h5>
+                    <p>Rijk &amp; sfeervol</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #c48a9a;"></div>
+                    <h5>Oud roze</h5>
+                    <p>Zacht &amp; romantisch</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #6a7a8a;"></div>
+                    <h5>Blauwgrijs</h5>
+                    <p>Rustig &amp; elegant</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #4a4a4a;"></div>
+                    <h5>Antraciet</h5>
+                    <p>Strak &amp; tijdloos</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #7a6a5a;"></div>
+                    <h5>Grijsbruin</h5>
+                    <p>Ingetogen &amp; zacht</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #2d5a4e;"></div>
+                    <h5>Donkergroen</h5>
+                    <p>Rust &amp; natuur</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #3e3e5e;"></div>
+                    <h5>Donkerblauw</h5>
+                    <p>Diep &amp; verfijnd</p>
+                </div>
+            </div>
+
+            <div class="styling-photos">
+                <img src="images/Thom_Lauren_Julian-66_89A4735-bewerkt.jpg" alt="Portret jongen in petrolblauw overhemd">
+                <img src="images/IrisValentina_Egemen-15_89A2187-bewerkt.jpg" alt="Portret jongen in donkere coltrui">
+            </div>
+
+            <h4>Warme kleuren</h4>
+            <div class="color-grid">
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #c4856a;"></div>
+                    <h5>Terra / Roest</h5>
+                    <p>Warmte &amp; zachtheid</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #8b4513;"></div>
+                    <h5>Cognac</h5>
+                    <p>Warm &amp; tijdloos</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #d4a574;"></div>
+                    <h5>Camel</h5>
+                    <p>Zacht &amp; natuurlijk</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #6b7a3a;"></div>
+                    <h5>Olijfgroen</h5>
+                    <p>Aards &amp; warm</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #c87533;"></div>
+                    <h5>Oranje</h5>
+                    <p>Levendig &amp; warm</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #d4a03c;"></div>
+                    <h5>Warmgeel</h5>
+                    <p>Zonnig &amp; vrolijk</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #1a5e6b;"></div>
+                    <h5>Petrol</h5>
+                    <p>Diep &amp; tijdloos</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #2a9d8f;"></div>
+                    <h5>Turquoise</h5>
+                    <p>Fris &amp; sierlijk</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #a0522d;"></div>
+                    <h5>Kastanje</h5>
+                    <p>Rijk &amp; klassiek</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: #cc5a3a;"></div>
+                    <h5>Warmrood</h5>
+                    <p>Krachtig &amp; levendig</p>
+                </div>
+            </div>
+
+            <div class="styling-photos">
+                <img src="images/IrisValentina_Lotte-31_89A2251-bewerkt.jpg" alt="Portret meisje met petrolblauwe blouse">
+                <img src="images/Fleur-115_89A4146-bewerkt.jpg" alt="Portret meisje met okerkleurige gehaakte sjaal">
+            </div>
+
+        </div>
+
+        <div class="card">
+            <h3>Licht of donker?</h3>
+            <p>Ik vind het zelf een rustig beeld geven als er niet teveel contrast is. Daarom kies ik vaak donkere kleuren op een donkere achtergrond en vice versa. Ben je zelf licht van kleur, dan werken lichtere kleuren prettig. Ben je donkerder, dan geven donkere kleuren weer meer rust.</p>
+            <p>Wit dragen mag, maar het komt met een disclaimer: spierwit leidt het oog af, dus gebruik liever een off-white. Je kijkt namelijk vanzelf naar het lichtste deel in de foto. Je wilt dat dit je gezicht is, want daar draait het om.</p>
+
+            <div class="styling-photos">
+                <img src="images/Imani_workshop_maart-31-bewerkt.jpg" alt="Donkere kleding op donkere achtergrond">
+                <img src="images/Pipp-143-bewerkt.jpg" alt="Lichte kleding op lichte achtergrond">
+            </div>
+
+            <div class="highlight">
+                <h4>Achtergronden in de studio</h4>
+                <p>Ik heb veel verschillende kleuren achtergronden in de studio om uit te kiezen. Samen kijken we naar welke combinaties mooi werken met de kleding van je kind.</p>
+            </div>
+
+            <div class="tip">
+                <p><strong>Tip:</strong> Neem van alles mee, dan kijken we samen wat het mooist werkt. Dit is geen fashion shoot. Je kind mag gewoon komen zoals het is. Simpel is goed.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Denk ook aan...</h3>
+            <ul>
+                <li><strong>Onderkleding:</strong> Kies medium tot donkere kleuren voor broek of rok, zodat de aandacht niet van het gezicht wegtrekt</li>
+                <li><strong>Haar:</strong> Houd het natuurlijk en dicht bij hoe je kind er normaal uitziet. Kam of borstel het haar voor de sessie</li>
+                <li><strong>Droge lippen:</strong> Smeer de lippen van je kind in vóór de sessie (labello/vaseline)</li>
+                <li><strong>Nagels:</strong> Let op schone, verzorgde nagels, handen komen soms in beeld</li>
+            </ul>
+
+        </div>
+    </div>
+
+    <!-- DE SESSIE -->
+    <div class="section" id="sessie">
+        <div class="card">
+            <h3>Hoe gaat de sessie in zijn werk?</h3>
+
+            <h4>Een ongehaaste ontmoeting</h4>
+            <p>We starten de sessie met een drankje en even kennismaken. Voor kinderen is het fijn om eerst een beetje rond te kijken en aan te komen in de studio. Ik leg uit hoe de studiolampen werken en hoe alles in zijn werk gaat. Daarna bekijken we samen de kleding nog een keer, kiezen we de achtergronden uit en gaan we rustig foto's maken.</p>
+
+            <h4>Jouw rol als ouder</h4>
+            <p>Natuurlijk mag je als ouder aanwezig zijn, tenzij je kind liever heeft dat je eventjes een ommetje maakt. Zijn er meerdere kinderen mee, waaronder jongere kinderen? Dan is er altijd de mogelijkheid om even lekker buiten rond te rennen.</p>
+            <p>Het is goed om te weten dat ik graag zelf contact maak met je kind. Je mag absoluut meekijken, maar kinderen ontspannen vaak het snelst als jij ook lekker relaxt op de achtergrond zit. Zo krijg ik de ruimte om op mijn eigen manier een band op te bouwen.</p>
+
+            <h4>Alle ruimte om te ontspannen</h4>
+            <p>Soms duurt het even voordat een kind zich ontspant, en die tijd nemen we ook rustig. Kinderen hebben best een lange verwerkingstijd. Als ze een aanwijzing krijgen, kan het even duren voordat ze die verwerken en uitvoeren. Je kunt je voorstellen dat het nogal overweldigend voelt als een kind heel veel aanwijzingen tegelijk krijgt van verschillende mensen. Daarom houd ik het rustig en werk ik het liefst een-op-een.</p>
+
+            <div class="tip">
+                <p><strong>Geen stijve poses:</strong> Ik werk ontspannen en met aandacht. Kinderen voelen dat. Wanneer je kind klaar is, breken we af. Er is altijd voldoende materiaal om uit te kiezen.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>De stijl van de portretten</h3>
+            <div class="do-dont" style="grid-template-columns: 1fr 1fr;">
+                <div style="background: var(--cream); padding: 1.2rem; border-radius: 10px;">
+                    <h5 style="font-family: 'Playfair Display', serif; color: var(--teal-dark); margin-bottom: 0.5rem;">Verstilling</h5>
+                    <p style="font-size: 0.88rem; color: var(--text-medium); margin: 0;">Geen drukte, geen afleidingen. Alleen je kind, het licht en de ruimte om te zijn.</p>
+                </div>
+                <div style="background: var(--cream); padding: 1.2rem; border-radius: 10px;">
+                    <h5 style="font-family: 'Playfair Display', serif; color: var(--teal-dark); margin-bottom: 0.5rem;">Schilderachtig</h5>
+                    <p style="font-size: 0.88rem; color: var(--text-medium); margin: 0;">Portretten die doen denken aan oude meesters. Door het licht, de warme kleurtonen en de rust.</p>
+                </div>
+                <div style="background: var(--cream); padding: 1.2rem; border-radius: 10px;">
+                    <h5 style="font-family: 'Playfair Display', serif; color: var(--teal-dark); margin-bottom: 0.5rem;">Ontspannen</h5>
+                    <p style="font-size: 0.88rem; color: var(--text-medium); margin: 0;">Kinderen krijgen alle ruimte om te wennen en zichzelf te zijn. Juist in de stilte komt het echte naar boven.</p>
+                </div>
+                <div style="background: var(--cream); padding: 1.2rem; border-radius: 10px;">
+                    <h5 style="font-family: 'Playfair Display', serif; color: var(--teal-dark); margin-bottom: 0.5rem;">Erfstuk</h5>
+                    <p style="font-size: 0.88rem; color: var(--text-medium); margin: 0;">Een tijdloze stijl. Vakmanschap en aandacht voor wat je kind bijzonder maakt. Nu en over twintig jaar.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight">
+            <h4>Elk kind is anders</h4>
+            <p>Elke sessie is maatwerk. Ik doe mijn uiterste best om prachtige portretten te maken, maar we werken met kinderen en dat maakt elke sessie uniek. Het hangt af van het moment: hoe je kind zich voelt, hoeveel tijd het nodig heeft om te wennen en wat er op die dag gebeurt. Ik kan daarom geen garanties geven op een specifiek resultaat. Wat ik wel kan beloven is dat ik met geduld, aandacht en vakmanschap het beste uit elke sessie haal.</p>
+        </div>
+    </div>
+
+    <!-- LOCATIE -->
+    <div class="section" id="locatie">
+        <div class="card">
+            <h3>Locatie &amp; Route</h3>
+
+            <div class="highlight">
+                <h4>Studio Adres</h4>
+                <p style="font-size: 1.1rem; font-weight: 500;">Weg en Bos 22C, Bergschenhoek</p>
+            </div>
+
+            <img src="images/fotostudiobergschenhoek.jpg" alt="Fotostudio Weg en Bos 22C Bergschenhoek" style="width: 100%; border-radius: 10px; margin: 1.2rem 0;">
+
+            <h4>De Deur</h4>
+            <p>De studio bevindt zich op nummer 22C. De ingang vind je aan de linkerkant van het pand (zie pijl op de foto). Bel aan bij aankomst, ik sta klaar om je te ontvangen.</p>
+        </div>
+
+        <div class="card">
+            <h3>Parkeren</h3>
+            <p>Je kunt gratis parkeren bij de studio. Op de kaart hieronder zie je het parkeergebied (paars gearceerd). Er is ruim voldoende plek.</p>
+
+            <img src="images/parkeren-studio-bergschenhoek.png" alt="Parkeerkaart studio met paars gearceerd parkeergebied" style="width: 100%; border-radius: 10px; margin: 1.2rem 0;">
+        </div>
+
+    </div>
+
+    <!-- NA DE SESSIE -->
+    <div class="section" id="nadesessie">
+        <div class="card">
+            <h3>Na de sessie</h3>
+
+            <h4>Online Galerij</h4>
+            <p>Binnen een week na de sessie ontvang je een link naar een online galerij met de beste foto's. Deze zijn nog niet nabewerkt, maar geven alvast een beeld van het resultaat.</p>
+
+            <h4>Jouw Keuze</h4>
+            <p>Uit de galerij kies je het portret dat aan de muur mag. Neem hier rustig de tijd voor. Het is een keuze die je elke dag opnieuw ziet.</p>
+            <p>Daarnaast kies je drie portretten die je ontvangt voor digitaal gebruik. Deze zijn niet geschikt om zelf te printen, maar bedoeld als mooie herinnering om digitaal te bewaren en te delen.</p>
+
+            <h4>Nabewerking</h4>
+            <p>Het gekozen portret wordt zorgvuldig nabewerkt. Eventuele oneffenheden worden in Photoshop verwijderd. De nabewerking zorgt voor de sfeervolle, schilderachtige uitstraling.</p>
+
+            <h4>Levering</h4>
+            <p>De levertijd van de lijst is ongeveer vier weken. Het standaardformaat is 40x56cm, maar grotere of kleinere formaten zijn ook mogelijk.</p>
+
+            <div class="tip">
+                <p><strong>Extra bestellen:</strong> Wil je extra prints, digitale bestanden of wall art? Dat kan altijd. Een ingelijst portret is bijvoorbeeld ook een prachtig cadeau voor opa's en oma's. Bekijk de prijzen onder het tabblad "Prijzen &amp; Wall Art".</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRIJZEN -->
+    <div class="section" id="prijzen">
+        <div class="card">
+            <h3>De Investering</h3>
+
+            <div class="highlight">
+                <h4>Kinderportret Sessie</h4>
+                <p style="font-size: 1.6rem; font-weight: 600; margin: 0.5rem 0;">€ 650,-</p>
+                <p style="font-size: 0.85rem;">inclusief btw</p>
+                <p style="margin-top: 0.8rem;">Elk volgend kind in hetzelfde gezin: <strong>€ 100,- korting</strong></p>
+            </div>
+
+            <div class="highlight" style="margin-top: 1.5rem;">
+                <h4>De sessie is inclusief</h4>
+                <ul>
+                    <li>Persoonlijk consult voorafgaand aan de fotoshoot</li>
+                    <li>Ondersteuning in kleding en kleurkeuze</li>
+                    <li>Fotoshoot in de studio van 1 tot 1,5 uur</li>
+                    <li>Meerdere kledingwissels indien gewenst</li>
+                    <li>Uitgebreide galerij om uit te kiezen</li>
+                    <li>Sfeervolle nabewerking van de gekozen portretten</li>
+                    <li>3 portretten naar keuze, voor digitaal gebruik, perfect als herinnering</li>
+                    <li>1 portret afgedrukt op fine art papier, gemonteerd in baklijst (40x56cm), klaar om aan de muur te hangen</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <h3>Extra Wall Art Bestellen</h3>
+
+            <h4>Fine Art Print (los)</h4>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Formaat</th>
+                        <th>Prijs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>20 x 30 cm</td><td class="price">€ 125,-</td></tr>
+                    <tr><td>30 x 45 cm</td><td class="price">€ 175,-</td></tr>
+                    <tr><td>40 x 60 cm</td><td class="price">€ 225,-</td></tr>
+                    <tr><td>50 x 75 cm</td><td class="price">€ 275,-</td></tr>
+                    <tr><td>60 x 90 cm</td><td class="price">€ 325,-</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Fine Art Print in Baklijst</h4>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Formaat</th>
+                        <th>Prijs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>20 x 30 cm</td><td class="price">€ 265,-</td></tr>
+                    <tr><td>30 x 45 cm</td><td class="price">€ 325,-</td></tr>
+                    <tr><td>40 x 60 cm</td><td class="price">€ 415,-</td></tr>
+                    <tr><td>50 x 75 cm</td><td class="price">€ 485,-</td></tr>
+                    <tr><td>60 x 90 cm</td><td class="price">€ 575,-</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Op MDF geplakt</h4>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Formaat</th>
+                        <th>Prijs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>20 x 30 cm</td><td class="price">€ 150,-</td></tr>
+                    <tr><td>30 x 45 cm</td><td class="price">€ 215,-</td></tr>
+                    <tr><td>40 x 60 cm</td><td class="price">€ 275,-</td></tr>
+                    <tr><td>50 x 75 cm</td><td class="price">€ 335,-</td></tr>
+                    <tr><td>60 x 90 cm</td><td class="price">€ 395,-</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>Extra Digitale Bestanden</h3>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Aantal</th>
+                        <th>Prijs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1 extra digitaal bestand</td><td class="price">€ 75,-</td></tr>
+                    <tr><td>3 extra digitale bestanden</td><td class="price">€ 195,-</td></tr>
+                    <tr><td>5 extra digitale bestanden</td><td class="price">€ 285,-</td></tr>
+                    <tr><td>10 extra digitale bestanden</td><td class="price">€ 495,-</td></tr>
+                </tbody>
+            </table>
+
+            <div class="tip">
+                <p><strong>Let op!</strong> De portretten worden enkel voor digitaal gebruik geleverd. Het printen gebeurt in eigen beheer bij een speciaal fine art printlab om de hoogste kwaliteit te garanderen.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Vergroten inbegrepen baklijst</h3>
+            <p>Het standaardformaat van de inbegrepen baklijst is 40 x 56 cm. Wil je een groter formaat? Dat kan tegen een meerprijs van € 50,- per stap.</p>
+            <table class="price-table">
+                <thead>
+                    <tr>
+                        <th>Formaat</th>
+                        <th>Meerprijs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>40 x 56 cm (standaard)</td><td class="price">inbegrepen</td></tr>
+                    <tr><td>50 x 70 cm</td><td class="price">+ € 50,-</td></tr>
+                    <tr><td>60 x 84 cm</td><td class="price">+ € 100,-</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- DE LIJST -->
+    <div class="section" id="delijst">
+        <div class="card">
+            <h3>De Print</h3>
+            <p>Bij de fotoshoot is een fine art print in baklijst inbegrepen, in het standaardformaat 40 x 56 cm. Wil je het groter of kleiner? Dat kan. En uiteraard kun je ook extra prints bestellen, bijvoorbeeld voor opa's en oma's. Dit kan op papier of op MDF. In de studio laat ik je graag voorbeelden zien.</p>
+
+            <img src="images/ylsemetlijst.png" alt="Meisje met ingelijst portret" style="max-width: 400px; width: 100%; border-radius: 10px; margin: 1.2rem 0;">
+        </div>
+
+        <div class="card">
+            <h3>Vakwerk &amp; Materialen</h3>
+            <p>De producten worden vervaardigd door een gespecialiseerd vaklab. Met speciale technieken en materialen leveren zij hoogwaardige kwaliteit die je ziet en voelt.</p>
+
+            <p>Het portret wordt geprint als fine art print met een lichte textuur, wat het schilderachtige karakter versterkt. De print wordt vervolgens gemonteerd op aluminium en zwevend geplaatst in een houten baklijst. De lijst komt zonder glas, wat het schilderachtige effect extra benadrukt.</p>
+
+            <div class="highlight" style="margin: 1.5rem 0;">
+                <h4>Standaard: zwarte houten baklijst</h4>
+                <p>Andere kleuren zijn ook mogelijk. Denk aan wit, naturel eiken of donker walnoot.</p>
+            </div>
+
+            <img src="images/Baklijsten voor mail.jpg" alt="Beschikbare baklijsten in verschillende houtsoorten en kleuren" style="max-width: 350px; width: 100%; border-radius: 10px; margin: 1.2rem 0;">
+        </div>
+
+        <div class="card">
+            <h3>Museumkwaliteit</h3>
+            <p>Het papier is van museumkwaliteit en blijft onder alle omstandigheden goed, ook in direct zonlicht. Je portret gaat generaties lang mee zonder verkleuring.</p>
+
+            <div class="highlight" style="margin: 1.5rem 0;">
+                <h4>Omgaan met je print</h4>
+                <p>Omdat de lijst zonder glas wordt geleverd, is de print kwetsbaar. Houd rekening met het volgende:</p>
+                <ul>
+                    <li>Pak de lijst altijd aan de zijkanten of achterkant vast</li>
+                    <li>Raak de print zelf nooit aan, ook niet met schone handen</li>
+                    <li>Je ontvangt handschoentjes van mij om de lijst veilig uit te pakken en op te hangen</li>
+                    <li>Instrueer eventueel de schoonmaker om de print nooit aan te raken of schoon te maken</li>
+                    <li>Na ontvangst ben je zelf verantwoordelijk voor de zorg van het product. Eventuele schade kan achteraf niet op de fotograaf worden verhaald. Een nabestelling doen kan tegen kostprijs</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>De Techniek</h3>
+            <p>De prints worden gemaakt met een Epson SureColor P20000, een 64 inch grootformaatprinter met de PrecisionCore MicroTFP-printkop. Deze printer werkt met 10 kleuren UltraChrome Pro-inkt, waaronder 2 zwart- en 3 grijstinten. Door de hoge dichtheid zijn de overgangen tussen tinten uiterst vloeiend.</p>
+
+            <p>Het resultaat: heldere, levendige kleuren met een breed Pantone-gecertificeerd kleurbereik. Dit maakt het verschil tussen een gewone afdruk en een echte fine art print.</p>
+
+            <img src="images/image001.png" alt="MASA Print vaklab" style="max-width: 200px; margin: 1.2rem 0; opacity: 0.7;">
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="section" id="contact">
+        <div class="card">
+            <h3>Vragen? Neem gerust contact op</h3>
+            <p>Je mag altijd mailen, bellen of appen als je ergens niet uitkomt. Neem gerust contact op, zodat je met vertrouwen je shoot ingaat.</p>
+
+            <div class="highlight">
+                <h4>Contactgegevens</h4>
+                <ul>
+                    <li><strong>E-mail:</strong> <a href="mailto:info@irisvantriet.nl" style="color: rgba(255,255,255,0.85);">info@irisvantriet.nl</a></li>
+                    <li><strong>Telefoon / WhatsApp:</strong> <a href="tel:0619817596" style="color: rgba(255,255,255,0.85);">06-19817596</a></li>
+                    <li><strong>Instagram:</strong> <a href="https://www.instagram.com/studio_irisvantriet" target="_blank" style="color: rgba(255,255,255,0.85);">@studio_irisvantriet</a></li>
+                </ul>
+            </div>
+
+            <h4>Studio</h4>
+            <p>Weg en Bos 22C, Bergschenhoek (nabij Rotterdam)</p>
+        </div>
+    </div>
+
+    <!-- VOORWAARDEN -->
+    <div class="section" id="voorwaarden">
+        <div class="card">
+            <h3>Algemene Voorwaarden</h3>
+            <p style="margin-bottom: 1.5rem;">Algemene voorwaarden van Studio Iris van 't Riet (opdrachtnemer)</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.85rem;">
+                <div>
+                    <p><strong>Vestigingsadres</strong><br>Iris van 't Riet<br>Van Marumhof 15<br>3045CC Rotterdam</p>
+                </div>
+                <div>
+                    <p><strong>Studioadres</strong><br>Weg en Bos 22C<br>Bergschenhoek</p>
+                    <p style="margin-top: 0.5rem;"><strong>KVK:</strong> 69577552</p>
+                </div>
+            </div>
+
+            <div class="highlight" style="margin-bottom: 1.5rem;">
+                <h4>1. Definities</h4>
+                <ul>
+                    <li><strong>Aw:</strong> Auteurswet 1912</li>
+                    <li><strong>Fotografisch werk:</strong> fotografische werken zoals bedoeld in artikel 10 lid 1 sub 9 Aw, dan wel andere werken in de zin van de Aw</li>
+                    <li><strong>Fotograaf:</strong> de gebruiker in de zin van art. 6:231 BW</li>
+                    <li><strong>Wederpartij:</strong> de wederpartij in de zin van art. 6:231 BW</li>
+                    <li><strong>Gebruik:</strong> verveelvoudiging en/of openbaarmaking in de zin van artikel 1 jo. 12 en 13 Aw</li>
+                </ul>
+            </div>
+
+            <h4>2. Toepassing</h4>
+            <p>Deze Algemene Voorwaarden zijn van toepassing op alle rechtsbetrekkingen tussen een Fotograaf en een Wederpartij, inclusief offertes, opdrachtbevestigingen en mondelinge of schriftelijke overeenkomsten, ook na het be&euml;indigen van een overeenkomst, tenzij partijen schriftelijk en uitdrukkelijk van deze voorwaarden zijn afgeweken.</p>
+
+            <h4>3. Vergoeding</h4>
+            <p>De vergoeding voor de geleverde diensten en producten is volgens de brochure geldend op het moment van boeking.</p>
+
+            <h4>4. Factuur en betaling</h4>
+            <ul>
+                <li>Betaling dient te geschieden binnen 14 dagen na factuurdatum en voor aanvang van de fotoshoot.</li>
+                <li>De factuur omvat de prijs van de portretsessie inclusief de daarbij behorende producten. Upgrades en bijbestellingen kunnen na afloop van de fotoshoot besteld worden en worden geleverd na betaling van deze extra factuur.</li>
+                <li>Indien de Wederpartij in verzuim is of op andere wijze tekort geschoten in de nakoming van een of meer van zijn verplichtingen, een inbreuk op auteursrecht daaronder begrepen, dan komen alle kosten die de Fotograaf ter verkrijging van voldoening in en buiten rechte voor rekening van de Wederpartij.</li>
+                <li>Geen enkel gebruik van het Fotografisch werk op welke wijze dan ook is toegestaan, zolang de Wederpartij enige uitstaande factuur van de Fotograaf nog niet heeft voldaan.</li>
+            </ul>
+
+            <h4>5. Klachten</h4>
+            <p>Klachten inzake het geleverde werk dienen zo spoedig mogelijk, doch in ieder geval binnen tien werkdagen na levering van de Fotografische werken schriftelijk/per mail aan de Fotograaf te worden medegedeeld. De Fotograaf heeft het recht binnen redelijke termijn alsnog goed werk voor afgekeurd werk te leveren, tenzij dit tot onevenredige schade voor de Wederpartij zou leiden.</p>
+
+            <h4>6. Opdracht</h4>
+            <ul>
+                <li>De Fotograaf heeft het recht om alles dat bij een opdrachtovereenkomst niet uitdrukkelijk is omschreven naar eigen technisch en creatief inzicht uit te voeren.</li>
+                <li>Wijzigingen in de opdracht door de Wederpartij om welke reden dan ook, komen voor rekening van de Wederpartij en zullen door de Fotograaf slechts worden uitgevoerd na aparte offerte van meerkosten die door de Wederpartij voor akkoord is ondertekend en aan de Fotograaf is geretourneerd.</li>
+                <li>In geval van annulering van een opdrachtovereenkomst door de Wederpartij op welk moment dan ook en om welke reden dan ook, heeft de Fotograaf recht op een vergoeding van 125 euro exclusief 21% btw. In geval van ziekte of calamiteiten, kan de fotoshoot tot 24 uur voorafgaand aan de afspraak kosteloos verzet worden.</li>
+            </ul>
+
+            <div class="highlight" style="margin: 1.5rem 0;">
+                <h4>7. Auteursrecht</h4>
+                <p>Het auteursrecht op de Fotografische werken berust bij de fotograaf.</p>
+            </div>
+
+            <h4>8. Gebruik</h4>
+            <ul>
+                <li>De wederpartij ontvangt enkel de aangeschafte portretten en heeft geen recht op andere, niet-aangeschafte gemaakte portretten. De fotograaf is niet verplicht inzicht te geven in alle gemaakte foto's. De wederpartij dient uit de pre-selectie een keuze te maken.</li>
+                <li>Bij de aangeschafte portretten wordt een digitaal bestand geleverd via wetransfer. Deze is geprepareerd voor digitaal gebruik (72dpi, lange zijde 2000 pixels). Prints worden in beheer van de fotograaf gedaan en enkel op aangeschafte portretten.</li>
+                <li>Na het in goede orde ontvangen van de bestelde producten is Fotograaf niet langer aansprakelijk of verantwoordelijk voor staat en zorg van het product. Wederpartij begrijpt dat de prints een kwetsbaar karakter hebben en dient hier zorgvuldig mee om te gaan.</li>
+                <li>Fotograaf vraagt toestemming aan Wederpartij voor publicatie van gemaakte beelden op sociale media, website en marketing doeleinden van Fotograaf. Publicatie zal enkel plaatsvinden nadat Wederpartij toestemming heeft gegeven.</li>
+            </ul>
+
+            <h4>9. Inbreuk op auteursrecht</h4>
+            <ul>
+                <li>Elk gebruik van een Fotografisch werk dat niet is overeengekomen, wordt beschouwd als een inbreuk op het auteursrecht van de Fotograaf.</li>
+                <li>Bij inbreuk komt de Fotograaf een vergoeding toe ter hoogte van tenminste driemaal de door de Fotograaf gebruikelijk gehanteerde licentievergoeding voor een dergelijke vorm van gebruik, zonder enig recht te verliezen op vergoeding van overige geleden schade.</li>
+            </ul>
+
+            <h4>10. Naamsvermelding en persoonlijkheidsrechten</h4>
+            <ul>
+                <li>De naam van de Fotograaf dient duidelijk bij een gebruikt Fotografisch werk te worden vermeld, of met een verwijzing naar het Fotografisch werk in de publicatie te worden opgenomen.</li>
+                <li>De Wederpartij neemt bij de verveelvoudiging en openbaarmaking van een Fotografisch werk te allen tijde de persoonlijkheidsrechten van de fotograaf conform artikel 25 Auteurswet in acht.</li>
+                <li>Voor iedere inbreuk op de aan de Fotograaf toekomende persoonlijkheidsrechten is de Wederpartij een vergoeding verschuldigd van tenminste 100% van de door de Fotograaf gebruikelijk gehanteerde licentievergoeding.</li>
+            </ul>
+
+            <h4>11. Aansprakelijkheid en rechten van derden</h4>
+            <ul>
+                <li>De Fotograaf is bevoegd deze Overeenkomst aan te gaan en voornoemde Gebruik te verlenen.</li>
+                <li>De Fotograaf is jegens de Wederpartij niet aansprakelijk voor aanspraken van derden en/of schade voortvloeiend uit de exploitatie en openbaarmaking van het Werk, tenzij er sprake is van grove schuld of opzet aan de zijde van de Fotograaf.</li>
+                <li>De aansprakelijkheid van Fotograaf is in elk geval beperkt tot de hoogte van het factuurbedrag, dan wel, indien en voor zover er sprake is van een verzekerde schade, tot de hoogte van de onder de verzekering feitelijk uitgekeerde somma.</li>
+            </ul>
+
+            <h4>12. Faillissement/surseance</h4>
+            <p>Zowel de Fotograaf als de Wederpartij hebben het recht de overeenkomst onmiddellijk te be&euml;indigen in geval van faillissement of surseance van betaling van de andere partij. In geval van faillissement van de Wederpartij heeft de Fotograaf het recht de verstrekte licentie te be&euml;indigen.</p>
+
+            <h4>13. Rechts- en forumkeuze</h4>
+            <ul>
+                <li>Alle gevallen waarin deze Algemene Voorwaarden van toepassing zijn, worden beheerst door Nederlands recht.</li>
+                <li>Ieder geschil met betrekking tot de tekst en uitleg van deze Algemene Voorwaarden en een rechtsbetrekking tussen de Fotograaf en de Wederpartij, zal worden voorgelegd aan de bevoegde rechter in Nederland.</li>
+            </ul>
+
+            <p style="margin-top: 2rem; font-size: 0.8rem; color: var(--text-light);">DuPho. | Dutch Professional Photographers. Deze Algemene Voorwaarden zijn gedeponeerd bij de Rechtbank Amsterdam onder nummer 66/2016.</p>
+        </div>
+    </div>
+
+</main>
+
+<!-- Footer Contact Bar -->
+<footer class="contact-bar">
+    <h3>Nog vragen?</h3>
+    <p><a href="mailto:info@irisvantriet.nl">info@irisvantriet.nl</a> &nbsp;|&nbsp; <a href="tel:0619817596">06-19817596</a></p>
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.6);">Studio Iris van 't Riet | Kinder- en Tienerportret</p>
+</footer>
+
+<script>
+    // Navigation
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const sections = document.querySelectorAll('.section');
+
+    // Send height to parent window (for iframe embed)
+    function sendHeight() {
+        const height = document.documentElement.scrollHeight;
+        window.parent.postMessage({ type: 'resize', height: height }, '*');
+    }
+
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.section;
+
+            // Update active nav
+            navBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Show target section
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById(target).classList.add('active');
+
+            // Scroll to top of content on parent page
+            window.parent.postMessage({ type: 'scrollToTop' }, '*');
+
+            // Update iframe height after section switch
+            setTimeout(sendHeight, 100);
+        });
+    });
+
+    // Send height on load and on resize
+    window.addEventListener('load', sendHeight);
+    window.addEventListener('resize', sendHeight);
+
+    // Also observe DOM changes that might affect height
+    new MutationObserver(sendHeight).observe(document.body, { childList: true, subtree: true, attributes: true });
+</script>
+
+</body>
+</html>
