@@ -557,6 +557,187 @@
                 padding: 1.5rem 1rem 3rem;
             }
         }
+
+        /* Contract form styles */
+        .contract-text {
+            background: var(--white);
+            border: 1px solid var(--cream-dark);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text-medium);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .contract-text h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 1.2rem 0 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        .contract-text h4:first-child {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1.5px solid var(--cream-dark);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            background: var(--white);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .signature-area {
+            margin: 1rem 0;
+        }
+
+        .signature-area label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .signature-canvas {
+            border: 1.5px solid var(--cream-dark);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: crosshair;
+            touch-action: none;
+            width: 100%;
+            height: 150px;
+            display: block;
+        }
+
+        .signature-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.4rem;
+        }
+
+        .btn-clear {
+            background: none;
+            border: 1px solid var(--cream-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-clear:hover {
+            border-color: var(--terra);
+            color: var(--terra);
+        }
+
+        .btn-submit {
+            display: inline-block;
+            background: var(--teal-dark);
+            color: var(--white);
+            border: none;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--teal);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-success {
+            display: none;
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .form-success h4 {
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-success p {
+            color: #388e3c;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            margin: 1rem 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.25rem;
+            accent-color: var(--teal-dark);
+        }
+
+        .checkbox-group label {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -581,6 +762,7 @@
     <button class="nav-btn" data-section="sessie">De Sessie</button>
     <button class="nav-btn" data-section="locatie">Locatie &amp; Parkeren</button>
     <button class="nav-btn" data-section="nadesessie">Na de Sessie</button>
+    <button class="nav-btn" data-section="vrijwaring">Vrijwaring</button>
     <button class="nav-btn" data-section="contact">Contact</button>
 </nav>
 
@@ -955,6 +1137,120 @@
         </div>
     </div>
 
+    <!-- VRIJWARING -->
+    <div class="section" id="vrijwaring">
+        <div class="card">
+            <h3>Model Vrijwaringsverklaring</h3>
+            <p>Lees de vrijwaringsverklaring hieronder rustig door. Vul daarna je gegevens in en onderteken het formulier onderaan deze pagina.</p>
+
+            <div class="contract-text">
+                <h4>Algemeen</h4>
+                <p>Geportretteerde zal model staan voor fotograaf, waarbij fotograaf en workshop deelnemer portretten zal maken van model/geportretteerde. Fotograaf is auteursrechthebbende van de foto's. Geportretteerde zal onderstaande toestemming verlenen voor het gebruik van de portretten. Fotograaf zal aan geportretteerde foto's leveren die geportretteerde volgens hierna overeen te komen wijze mag gebruiken.</p>
+
+                <h4>Foto's</h4>
+                <p>Fotograaf en workshop deelnemer levert aan geportretteerde het volgende:<br>
+                Aantal foto's: 3 tot 5<br>
+                Vorm: lage resolutie (geschikt voor digitaal gebruik)</p>
+
+                <h4>Gebruik door fotograaf</h4>
+                <p>Geportretteerde geeft uitdrukkelijk toestemming voor het openbaar maken van zijn/haar portret in het portfolio van de fotograaf en workshop deelnemer, zowel in print als digitaal, voor online en offline gebruik; ter publicatie op social media, waaronder maar niet uitsluitend Facebook, Instagram, Flickr, Pinterest, YouTube en eventuele toekomstige sociale media; ten behoeve van promotionele doeleinden van fotograaf, zoals in advertenties, op banners en andere promotionele openbaarmakingsvormen;</p>
+                <p>Ter publicatie door derden, online of in print, ten behoeve van fotograaf, over fotograaf of over het werk van fotograaf; in een expositie online of offline of in een fotoboek in print of digitaal, van fotograaf of in een verzamelboek samengesteld door een derde; door derden, nadat fotograaf aan deze derden daartoe een licentie heeft verstrekt; of voor enige andere openbaarmaking in lijn met bovenstaande.</p>
+                <p>Fotograaf zal de portretten uitdrukkelijk niet gebruiken om te (laten) gebruiken in een seksuele of pornografische context.</p>
+                <p>Fotograaf zal bij publicatie de volgende gegevens vermelden: naam van model.</p>
+
+                <h4>Gebruik door model/geportretteerde</h4>
+                <p>Fotograaf en workshop deelnemer geeft uitdrukkelijk toestemming voor het gebruik van de portretten op de volgende wijze: voor portfolio van geportretteerde, zowel op diens eigen website als social media kanalen, waaronder maar niet uitsluitend Facebook, Instagram, Pinterest, Flickr en toekomstige social media kanalen.</p>
+                <p>Geportretteerde dient bij openbaarmaking altijd de naam van de fotograaf te vermelden, althans een foto openbaar te maken waarin door fotograaf een naam of watermerk is geplaatst.</p>
+                <p>Ten behoeve van portfolio's bij modellenbureaus, waarbij naamsvermelding van de fotograaf slechts verplicht is indien publicatie door het bureau gebruikelijk met naamsvermelding geschiedt.</p>
+                <p>Geportretteerde zal de portretten uitdrukkelijk niet: op enigerlei wijze bewerken, waaronder maar niet uitsluitend het aanpassen van verhoudingen, het aanpassen van kleuren of het gebruiken van filters op social media; verstrekken aan derden, al dan niet tegen betaling of een andere vergoeding, behoudens het ter beschikking stellen aan een modellenbureau.</p>
+                <p>Geportretteerde heeft niet de bevoegdheid sub-licenties te verlenen, anders dan aan een modellenbureau dat geportretteerde zal vertegenwoordigen.</p>
+
+                <h4>Overige afspraken voor gebruik</h4>
+                <p>Periode: voor onbepaalde tijd<br>
+                Geografisch gebied: wereldwijd, online</p>
+                <p>Bij andere wijzen van gebruik dienen partijen met elkaar in overleg te treden om aanvullende afspraken te maken.</p>
+                <p>Geportretteerde vrijwaart fotograaf van enige aanspraak met betrekking tot het gebruik of publicatie van de portretten, in welke vorm dan ook, behoudens beperkingen zoals hierboven zijn vermeld.</p>
+                <p>Fotograaf behoudt het recht voor onderhavige overeenkomst over te dragen aan derden.</p>
+
+                <h4>Auteursrecht</h4>
+                <p>Fotograaf zal de portretten bewerken in de door hem/haar gebruikelijke stijl. Portretten kunnen eventueel in collages of in combinatie met andere foto's gebruikt worden. Geportretteerde stemt er mee in dat fotograaf de portretten creatief mag verveelvoudigen en openbaarmaken behoudens beperkingen zoals hierboven genoemd.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Ondertekenen</h3>
+            <p>Vul hieronder je gegevens in en plaats je handtekening. Indien de geportretteerde jonger is dan 18 jaar, dient ook een ouder/voogd te ondertekenen.</p>
+
+            <form id="contractForm" onsubmit="return false;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modelNaam">Naam geportretteerde *</label>
+                        <input type="text" id="modelNaam" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modelGeboortedatum">Geboortedatum *</label>
+                        <input type="date" id="modelGeboortedatum" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="modelAdres">Adres</label>
+                    <input type="text" id="modelAdres">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modelTelefoon">Telefoon</label>
+                        <input type="tel" id="modelTelefoon">
+                    </div>
+                    <div class="form-group">
+                        <label for="modelEmail">E-mail *</label>
+                        <input type="email" id="modelEmail" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="workshopDatum">Datum workshop *</label>
+                        <input type="date" id="workshopDatum" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="omschrijving">Omschrijving portretten</label>
+                        <input type="text" id="omschrijving" placeholder="Bijv. portretfotografie workshop">
+                    </div>
+                </div>
+
+                <div class="signature-area">
+                    <label>Handtekening geportretteerde *</label>
+                    <canvas id="signatureCanvas" class="signature-canvas"></canvas>
+                    <div class="signature-actions">
+                        <button type="button" class="btn-clear" onclick="clearSignature('signatureCanvas')">Wissen</button>
+                    </div>
+                </div>
+
+                <div class="signature-area">
+                    <label>Handtekening ouder/voogd (indien jonger dan 18 jaar)</label>
+                    <canvas id="parentSignatureCanvas" class="signature-canvas"></canvas>
+                    <div class="signature-actions">
+                        <button type="button" class="btn-clear" onclick="clearSignature('parentSignatureCanvas')">Wissen</button>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="akkoord" required>
+                    <label for="akkoord">Ik heb de vrijwaringsverklaring gelezen en ga akkoord met de voorwaarden. *</label>
+                </div>
+
+                <button type="button" class="btn-submit" id="submitBtn" onclick="generateAndDownloadPDF()">Onderteken &amp; Download PDF</button>
+            </form>
+
+            <div class="form-success" id="formSuccess">
+                <h4>Vrijwaringsverklaring ondertekend!</h4>
+                <p>De PDF is gedownload. Stuur deze naar <a href="mailto:info@irisvantriet.nl">info@irisvantriet.nl</a> of neem hem mee naar de workshop.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- CONTACT -->
     <div class="section" id="contact">
         <div class="card">
@@ -983,6 +1279,7 @@
     <p style="margin-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.6);">Studio Iris van 't Riet | Kinder- en Tienerportret</p>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
     // Navigation
     const navBtns = document.querySelectorAll('.nav-btn');
@@ -1020,6 +1317,245 @@
 
     // Also observe DOM changes that might affect height
     new MutationObserver(sendHeight).observe(document.body, { childList: true, subtree: true, attributes: true });
+
+    // ===== SIGNATURE PAD =====
+    function initSignaturePad(canvasId) {
+        const canvas = document.getElementById(canvasId);
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        let hasSigned = false;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            ctx.strokeStyle = '#2a2a2a';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const touch = e.touches ? e.touches[0] : e;
+            return {
+                x: touch.clientX - rect.left,
+                y: touch.clientY - rect.top
+            };
+        }
+
+        function startDraw(e) {
+            e.preventDefault();
+            drawing = true;
+            hasSigned = true;
+            const pos = getPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        function draw(e) {
+            if (!drawing) return;
+            e.preventDefault();
+            const pos = getPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+
+        function stopDraw(e) {
+            if (e) e.preventDefault();
+            drawing = false;
+        }
+
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDraw);
+        canvas.addEventListener('mouseleave', stopDraw);
+
+        canvas.addEventListener('touchstart', startDraw, { passive: false });
+        canvas.addEventListener('touchmove', draw, { passive: false });
+        canvas.addEventListener('touchend', stopDraw, { passive: false });
+
+        canvas._hasSigned = () => hasSigned;
+        canvas._clear = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hasSigned = false;
+        };
+    }
+
+    initSignaturePad('signatureCanvas');
+    initSignaturePad('parentSignatureCanvas');
+
+    function clearSignature(canvasId) {
+        document.getElementById(canvasId)._clear();
+    }
+
+    // ===== PDF GENERATION =====
+    function generateAndDownloadPDF() {
+        const naam = document.getElementById('modelNaam').value.trim();
+        const geboortedatum = document.getElementById('modelGeboortedatum').value;
+        const adres = document.getElementById('modelAdres').value.trim();
+        const telefoon = document.getElementById('modelTelefoon').value.trim();
+        const email = document.getElementById('modelEmail').value.trim();
+        const workshopDatum = document.getElementById('workshopDatum').value;
+        const omschrijving = document.getElementById('omschrijving').value.trim();
+        const akkoord = document.getElementById('akkoord').checked;
+        const signatureCanvas = document.getElementById('signatureCanvas');
+        const parentSignatureCanvas = document.getElementById('parentSignatureCanvas');
+
+        if (!naam || !geboortedatum || !email || !workshopDatum) {
+            alert('Vul alle verplichte velden in (naam, geboortedatum, e-mail, datum workshop).');
+            return;
+        }
+        if (!akkoord) {
+            alert('Je dient akkoord te gaan met de voorwaarden.');
+            return;
+        }
+        if (!signatureCanvas._hasSigned()) {
+            alert('Plaats je handtekening in het handtekeningveld.');
+            return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const margin = 20;
+        const contentWidth = pageWidth - margin * 2;
+        let y = 20;
+
+        function addText(text, size, style, color) {
+            doc.setFontSize(size);
+            doc.setFont('helvetica', style || 'normal');
+            if (color) doc.setTextColor(color[0], color[1], color[2]);
+            else doc.setTextColor(42, 42, 42);
+            const lines = doc.splitTextToSize(text, contentWidth);
+            if (y + lines.length * size * 0.5 > 275) {
+                doc.addPage();
+                y = 20;
+            }
+            doc.text(lines, margin, y);
+            y += lines.length * size * 0.45 + 2;
+        }
+
+        function addHeading(text) {
+            y += 3;
+            addText(text, 11, 'bold');
+            y += 1;
+        }
+
+        function addLine() {
+            doc.setDrawColor(200, 200, 200);
+            doc.line(margin, y, pageWidth - margin, y);
+            y += 5;
+        }
+
+        // Header
+        doc.setFontSize(16);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(38, 77, 94);
+        doc.text('MODEL VRIJWARINGSVERKLARING', margin, y);
+        y += 7;
+        doc.setFontSize(11);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(95, 95, 95);
+        doc.text('Model tijdens Workshop', margin, y);
+        y += 10;
+
+        addLine();
+
+        // Fotograaf info
+        addText('Fotograaf/openbaar maker', 10, 'bold', [95, 95, 95]);
+        addText('Onderneming: Iris van \'t Riet', 9, 'normal', [95, 95, 95]);
+        addText('E-mail: info@irisvantriet.nl | Telefoon: 0619817596', 9, 'normal', [95, 95, 95]);
+        y += 4;
+
+        // Geportretteerde info
+        addText('Geportretteerde', 10, 'bold', [95, 95, 95]);
+        addText('Naam: ' + naam, 9, 'normal', [42, 42, 42]);
+        if (adres) addText('Adres: ' + adres, 9, 'normal', [42, 42, 42]);
+        addText('Geboortedatum: ' + formatDate(geboortedatum), 9, 'normal', [42, 42, 42]);
+        if (telefoon) addText('Telefoon: ' + telefoon, 9, 'normal', [42, 42, 42]);
+        addText('E-mail: ' + email, 9, 'normal', [42, 42, 42]);
+        addText('Datum workshop: ' + formatDate(workshopDatum), 9, 'normal', [42, 42, 42]);
+        if (omschrijving) addText('Omschrijving: ' + omschrijving, 9, 'normal', [42, 42, 42]);
+        y += 4;
+
+        addLine();
+
+        // Contract text
+        addHeading('Algemeen');
+        addText('Geportretteerde zal model staan voor fotograaf, waarbij fotograaf en workshop deelnemer portretten zal maken van model/geportretteerde. Fotograaf is auteursrechthebbende van de foto\'s. Geportretteerde zal onderstaande toestemming verlenen voor het gebruik van de portretten. Fotograaf zal aan geportretteerde foto\'s leveren die geportretteerde volgens hierna overeen te komen wijze mag gebruiken.', 9);
+
+        addHeading('Foto\'s');
+        addText('Fotograaf en workshop deelnemer levert aan geportretteerde het volgende: Aantal foto\'s: 3 tot 5. Vorm: lage resolutie (geschikt voor digitaal gebruik).', 9);
+
+        addHeading('Gebruik door fotograaf');
+        addText('Geportretteerde geeft uitdrukkelijk toestemming voor het openbaar maken van zijn/haar portret in het portfolio van de fotograaf en workshop deelnemer, zowel in print als digitaal, voor online en offline gebruik; ter publicatie op social media; ten behoeve van promotionele doeleinden van fotograaf; ter publicatie door derden ten behoeve van fotograaf; in een expositie of fotoboek; of voor enige andere openbaarmaking in lijn met bovenstaande.', 9);
+        addText('Fotograaf zal de portretten uitdrukkelijk niet gebruiken in een seksuele of pornografische context. Fotograaf zal bij publicatie de naam van het model vermelden.', 9);
+
+        addHeading('Gebruik door model/geportretteerde');
+        addText('Fotograaf en workshop deelnemer geeft toestemming voor gebruik van de portretten voor portfolio van geportretteerde, op eigen website en social media kanalen. Geportretteerde dient bij openbaarmaking altijd de naam van de fotograaf te vermelden. Geportretteerde zal de portretten niet bewerken of verstrekken aan derden.', 9);
+
+        addHeading('Overige afspraken');
+        addText('Periode: voor onbepaalde tijd. Geografisch gebied: wereldwijd, online. Geportretteerde vrijwaart fotograaf van enige aanspraak met betrekking tot het gebruik of publicatie van de portretten. Fotograaf behoudt het recht om deze overeenkomst over te dragen aan derden.', 9);
+
+        addHeading('Auteursrecht');
+        addText('Fotograaf zal de portretten bewerken in de gebruikelijke stijl. Portretten kunnen in collages of in combinatie met andere foto\'s gebruikt worden. Geportretteerde stemt in met creatieve verveelvoudiging en openbaarmaking.', 9);
+
+        y += 5;
+        addLine();
+
+        // Signatures
+        addText('Voor akkoord:', 10, 'bold');
+        y += 2;
+        addText('Datum: ' + formatDate(new Date().toISOString().split('T')[0]), 9);
+        y += 3;
+
+        addText('Handtekening geportretteerde:', 9, 'bold');
+        y += 2;
+        try {
+            const sigData = signatureCanvas.toDataURL('image/png');
+            if (y + 30 > 275) { doc.addPage(); y = 20; }
+            doc.addImage(sigData, 'PNG', margin, y, 60, 25);
+            y += 30;
+        } catch (e) {}
+
+        if (parentSignatureCanvas._hasSigned()) {
+            addText('Handtekening ouder/voogd:', 9, 'bold');
+            y += 2;
+            try {
+                const parentSigData = parentSignatureCanvas.toDataURL('image/png');
+                if (y + 30 > 275) { doc.addPage(); y = 20; }
+                doc.addImage(parentSigData, 'PNG', margin, y, 60, 25);
+                y += 30;
+            } catch (e) {}
+        }
+
+        // Footer
+        y += 5;
+        doc.setFontSize(7);
+        doc.setTextColor(150, 150, 150);
+        doc.text('Studio Iris van \'t Riet | Model Vrijwaringsverklaring | Digitaal ondertekend', margin, 285);
+
+        // Save
+        const fileName = 'Vrijwaringsverklaring_' + naam.replace(/\s+/g, '_') + '.pdf';
+        doc.save(fileName);
+
+        // Show success message
+        document.getElementById('formSuccess').style.display = 'block';
+        setTimeout(sendHeight, 200);
+    }
+
+    function formatDate(dateStr) {
+        if (!dateStr) return '';
+        const parts = dateStr.split('-');
+        if (parts.length === 3) return parts[2] + '-' + parts[1] + '-' + parts[0];
+        return dateStr;
+    }
 </script>
 
 </body>
