@@ -1243,7 +1243,9 @@
 
             <div class="form-success" id="formSuccess">
                 <h4>Vrijwaringsverklaring ondertekend!</h4>
-                <p>De PDF is gedownload. Stuur deze per e-mail naar <a href="mailto:portretcoach@gmail.com">portretcoach@gmail.com</a>, dan heb ik alles alvast binnen voor de workshop.</p>
+                <p>De PDF is gedownload als <strong id="successFileName">Vrijwaringsverklaring.pdf</strong> (kijk in je map <em>Downloads</em>).</p>
+                <p>Er is automatisch een e-mail geopend in je mailprogramma. <strong>Voeg het zojuist gedownloade PDF-bestand toe als bijlage</strong> en verzend de e-mail, dan heb ik alles binnen voor de workshop.</p>
+                <p style="margin-top: 12px;">Werkt het openen van de e-mail niet? <a href="#" id="reopenMailBtn" style="color: var(--terra); text-decoration: underline;">Klik hier om de e-mail opnieuw te openen</a> of stuur handmatig naar <a href="mailto:portretcoach@gmail.com">portretcoach@gmail.com</a>.</p>
             </div>
         </div>
     </div>
@@ -1303,6 +1305,14 @@
             // Scroll to top of content on parent page
             window.parent.postMessage({ type: 'scrollToTop' }, '*');
 
+            // Resize signature canvases now they're visible (they had 0x0 while hidden)
+            if (target === 'vrijwaring') {
+                ['signatureCanvas', 'parentSignatureCanvas'].forEach(id => {
+                    const c = document.getElementById(id);
+                    if (c && c._resize && !c._hasSigned()) c._resize();
+                });
+            }
+
             // Update iframe height after section switch
             setTimeout(sendHeight, 100);
         });
@@ -1324,9 +1334,11 @@
 
         function resizeCanvas() {
             const rect = canvas.getBoundingClientRect();
+            if (rect.width === 0 || rect.height === 0) return;
             const dpr = window.devicePixelRatio || 1;
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.scale(dpr, dpr);
             ctx.strokeStyle = '#2a2a2a';
             ctx.lineWidth = 2;
@@ -1382,6 +1394,7 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             hasSigned = false;
         };
+        canvas._resize = resizeCanvas;
     }
 
     initSignaturePad('signatureCanvas');
@@ -1542,8 +1555,39 @@
         const fileName = 'Vrijwaringsverklaring_' + naam.replace(/\s+/g, '_') + '.pdf';
         doc.save(fileName);
 
-        // Show success message
+        // Build pre-filled email so client only needs to attach the just-downloaded PDF
+        const subject = encodeURIComponent('Ondertekende vrijwaringsverklaring - ' + naam);
+        const body = encodeURIComponent(
+            'Beste Iris,\n\n' +
+            'Bijgevoegd de ondertekende vrijwaringsverklaring voor de workshop op ' + formatDate(workshopDatum) + '.\n\n' +
+            'LET OP: voeg het bestand "' + fileName + '" toe als bijlage voor je verzendt.\n' +
+            '(Te vinden in je map Downloads.)\n\n' +
+            'Met vriendelijke groet,\n' + naam
+        );
+        const mailtoHref = 'mailto:portretcoach@gmail.com?subject=' + subject + '&body=' + body;
+
+        // Show filename + success message
+        document.getElementById('successFileName').textContent = fileName;
         document.getElementById('formSuccess').style.display = 'block';
+
+        // Hook up "opnieuw openen" link
+        const reopenBtn = document.getElementById('reopenMailBtn');
+        if (reopenBtn) {
+            reopenBtn.onclick = function(e) {
+                e.preventDefault();
+                const a = document.createElement('a');
+                a.href = mailtoHref;
+                a.click();
+            };
+        }
+
+        // Auto-open the pre-filled email after a short delay so the PDF download starts first
+        setTimeout(function() {
+            const a = document.createElement('a');
+            a.href = mailtoHref;
+            a.click();
+        }, 600);
+
         setTimeout(sendHeight, 200);
     }
 
